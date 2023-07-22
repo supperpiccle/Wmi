@@ -1,0 +1,14 @@
+class User
+{
+  [key]
+  // MyKey uniquely identifies this class
+  String Name;   
+
+  uint32 LogonCount;
+};
+
+instance of User
+{
+  Name="Todd";
+  LogonCount=10;
+};

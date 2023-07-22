@@ -1,0 +1,39 @@
+#pragma namespace("\\\\.\\Root\\cimv2")
+
+Instance of __Win32Provider as $P   // $P is an alias
+{
+  // Name that describes your provider
+  Name        = "InstProvSamp" ;   
+  ClsId   = "{b0757c01-0675-4011-9c96-ab1461c357f0}" ;
+  HostingModel = "LocalSystemHost:InstProvSamp";
+} ;  
+
+instance of __PropertyProviderRegistration
+{
+  Provider = $P;
+  SupportsGet = TRUE;
+  SupportsPut = FALSE;
+};
+
+instance of __InstanceProviderRegistration
+{
+  Provider = $P;                // Alias to the __Win32Provider
+  SupportsPut = FALSE;          // Does not support the Put method
+  SupportsGet = TRUE;           // Supports the Get method
+  SupportsDelete = FALSE;       // Does not support the Delete method
+  SupportsEnumeration = TRUE;   // Supports enumeration.
+};
+
+[dynamic, provider("InstProvSamp"), // uses the InstProvSamp Provider
+ClassContext("whatever!")]          // information is dynamically
+                                    // supported by the provider
+class InstProvSamp
+{
+  [key]
+  // MyKey uniquely identifies this class
+  String MyKey="HELLO";   
+
+  // InstProvSamp dynamically updates MyValue
+  [PropertyContext("Name")] 
+  uint32 MyValue;
+};
